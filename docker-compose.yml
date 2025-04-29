@@ -1,0 +1,28 @@
+version: "3.8"
+
+services:
+  backend:
+    build:
+      context: ./backend       # Build the backend from the ./backend folder
+      dockerfile: Dockerfile   # Use Dockerfile in the backend folder
+    container_name: backend
+    ports:
+      - "8000:8000"            # Expose backend on port 8000
+    volumes:
+      - ./backend:/app         # Mount backend code into the container
+    environment:
+      - PYTHONUNBUFFERED=1     # Ensure logs are unbuffered for easier debugging
+
+  frontend:
+    build:
+      context: ./frontend      # Build the frontend from the ./frontend folder
+      dockerfile: Dockerfile   # Use Dockerfile in the frontend folder
+    container_name: frontend
+    ports:
+      - "3000:3000"            # Expose frontend on port 3000
+    volumes:
+      - ./frontend:/app        # Mount frontend code into the container
+    depends_on:
+      - backend                # Ensure backend starts before frontend
+    environment:
+      - CHOKIDAR_USEPOLLING=true  # Ensure live-reloading works well in some environments (only needed for dev)

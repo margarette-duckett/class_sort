@@ -1,0 +1,15 @@
+# Exclude Python bytecode files and caches
+*.pyc
+__pycache__
+
+# Exclude node_modules from being copied into the frontend Docker container
+frontend/node_modules
+
+# Exclude unnecessary files/folders from being copied into the Docker container
+.git
+.dockerignore
+docker-compose.yml
+README.md
+
+# sample
+sample_data/
